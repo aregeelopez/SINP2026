@@ -1,22 +1,12 @@
 "use client";
 import { useState, useCallback, useMemo } from "react";
+import { extractVerificationTokens } from "./lib/extractVerificationTokens";
 import GlossarySidebar from "./components/GlossarySidebar";
 import NumberVerification from "./components/NumberVerification";
 import PainAssessment from "./components/PainAssessment";
 import ProtocolCheatSheet from "./components/ProtocolCheatSheet";
 import NotesEditor from "./components/NotesEditor";
 import ShredModal from "./components/ShredModal";
-
-function extractNumbers(text: string) {
-  const numberRegex = /(\d[\d.,]*)/g;
-  const found: string[] = [];
-  const seen = new Set<string>();
-  let match;
-  while ((match = numberRegex.exec(text)) !== null) {
-    if (!seen.has(match[1])) { seen.add(match[1]); found.push(match[1]); }
-  }
-  return found;
-}
 
 export default function InterpreterPad() {
   const [notes, setNotes] = useState("");
@@ -45,16 +35,16 @@ export default function InterpreterPad() {
     setNotes((prev) => prev ? prev + " " + text : text);
   }, []);
 
-  const handleToggle = useCallback((num: string) => {
+  const handleToggle = useCallback((tokenId: string) => {
     setVerified(prev => {
       const next = new Set(prev);
-      if (next.has(num)) { next.delete(num); } else { next.add(num); }
+      if (next.has(tokenId)) { next.delete(tokenId); } else { next.add(tokenId); }
       return next;
     });
   }, []);
 
-  const allNumbers = useMemo(() => extractNumbers(notes), [notes]);
-  const unverifiedCount = allNumbers.filter(n => !verified.has(n)).length;
+  const verificationTokens = useMemo(() => extractVerificationTokens(notes), [notes]);
+  const unverifiedCount = verificationTokens.filter(token => !verified.has(token.id)).length;
 
   const renderRightPanel = () => {
     if (rightPanelTab === "numbers") return <NumberVerification notes={notes} verified={verified} onToggle={handleToggle} />;

@@ -16,7 +16,7 @@ A professional bilingual workspace built specifically for Spanish medical interp
 
 ## Features
 
-- **📖 EN → ES Glossary** — 6,000+ bilingual medical terms across 20+ specialties including Cardiology, OB/GYN, Oncology, Neurology, Mental Health, Medications, and more. Searchable and filterable by category.
+- **📖 EN ↔ ES Glossary** — 6,000+ bilingual terms covering 20+ medical specialties - including Cardiology, OB/GYN, Oncology, Neurology, Mental Health, and Medications - plus glossaries for Health Insurance, Auto Insurance, Financial, Cultural Nuances, and Customer Service terminology. Search and filter by category.
 - **🎧 Interpreter Protocol** — Full protocol cheat sheet covering all 13 sections: Opening, Core Rules, Intervention, Transparency, Flow Management, Role Boundaries, Note-Taking, Professional Delivery, Work Environment, Hold Time Policy, Special Scenarios, VRI Protocol, and Closing. Searchable accordion format.
 - **🔢 Number Verification** — Automatically extracts numbers from your notes including alphanumeric IDs for quick side-by-side verification.
 - **💊 Pain Assessment** — 10-point pain scale with bilingual labels plus 36 pain descriptors in English and Spanish. Click any descriptor to append directly to your notes.
@@ -48,13 +48,15 @@ app/
 │   ├── ProtocolCheatSheet.tsx     # 13-section interpreter protocol reference
 │   ├── ServiceWorkerRegistration.tsx
 │   └── ShredModal.tsx
-├── data/
-│   ├── MedicalData.ts
-│   ├── HealthInsuranceData.ts
-│   ├── AutoInsuranceData.ts
-│   ├── FinancialData.ts
-│   ├── CulturalData.ts
-│   └── CustomerServiceData.ts
+├──── data/
+│     ├── MedicalData.ts
+│     ├── HealthInsuranceData.ts
+│     ├── AutoInsuranceData.ts
+│     ├── FinancialData.ts
+│     ├── CulturalData.ts
+│     └── CustomerServiceData.ts
+├── lib/
+|   └── extractVerificationTokens.ts
 ├── global.css
 ├── layout.tsx
 └── page.tsx
