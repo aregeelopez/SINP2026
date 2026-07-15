@@ -2,7 +2,7 @@ export type VerificationToken = {
   /** Stable per occurrence, so repeated values can each be verified. */
   id: string;
   value: string;
-  type: "phone" | "date" | "time" | "identifier" | "measurement" | "number";
+  type: "phone" | "date" | "time" | "identifier" | "measurement" | "ssn" | "number";
 };
 
 // Keep meaningful live-call details together. Order matters: specific formats
@@ -14,6 +14,7 @@ const TOKEN_PATTERN = new RegExp(
     "(?<time>\\b\\d{1,2}:\\d{2}(?:\\s?[AaPp][Mm])?\\b)",
     "(?<identifier>\\b(?=[A-Za-z0-9-]*[A-Za-z])(?=[A-Za-z0-9-]*\\d)[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*\\b)",
     "(?<measurement>\\b\\d+(?:[.,]\\d+)?\\s?(?:mcg|mg|g|kg|lb|lbs|mL|L|mmHg|bpm|units?|u|%|°[CF])\\b)",
+    "(?<ssn>\\b\\d{3}-\\d{2}-\\d{4}\\b)",
     "(?<number>\\b\\d+(?:[.,]\\d+)?\\b)",
   ].join("|"),
   "g"
