@@ -65,9 +65,8 @@ export default function InterpreterPad() {
         background: "var(--bg-main)",
         color: "var(--text-dark)",
         fontFamily: "'DM Sans', system-ui, sans-serif",
-        maxWidth: "1200px",
-        height: "600px",
-        margin: "0 auto",
+        width: "100%",
+        height: "100vh",
       }}
     >
       <header
