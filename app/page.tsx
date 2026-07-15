@@ -105,8 +105,8 @@ export default function InterpreterPad() {
       </header>
 
       <div className="flex flex-1 overflow-hidden">
-        <aside
-          className="w-96 flex-shrink-0 border-r"
+       <aside
+          className="w-[28rem] flex-shrink-0 border-r"
           style={{ background: "var(--bg-panel)", borderColor: "var(--border)" }}
         >
           <GlossarySidebar />
@@ -117,7 +117,7 @@ export default function InterpreterPad() {
         </main>
 
         <aside
-          className={`${rightPanelTab === "protocol" ? "w-96" : "w-80"} flex-shrink-0 border-l flex flex-col transition-all`}
+          className={`${rightPanelTab === "protocol" ? "w-[30rem]" : "w-96"} flex-shrink-0 border-l flex flex-col transition-all`}
           style={{ background: "var(--bg-panel)", borderColor: "var(--border)" }}
         >
           <div className="flex border-b" style={{ borderColor: "var(--border)" }}>
