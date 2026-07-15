@@ -112,7 +112,7 @@ export default function InterpreterPad() {
           <GlossarySidebar />
         </aside>
 
-        <main className="flex-1 flex flex-col overflow-hidden" style={{ background: "var(--bg-main)" }}>
+       <main className="flex-1 flex flex-col overflow-hidden" style={{ background: "var(--bg-main)", minWidth: "420px" }}>
           <NotesEditor notes={notes} onChange={setNotes} />
         </main>
 
