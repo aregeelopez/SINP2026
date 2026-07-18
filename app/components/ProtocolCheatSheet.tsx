@@ -8,8 +8,8 @@ const SECTIONS = [
     badge: "MANDATORY",
     content: [
       { type: "scripts", items: [
-        { label: "Client (English)", text: `Good morning/afternoon. My name is [Name], ID [ID]. I will be your [Language] interpreter. Everything you say will remain confidential. Please speak in short, clear sentences.` },
-        { label: "LEP (Target Language)", text: `Good morning. I will be your interpreter. Everything you say will remain confidential. Please speak in short, clear sentences.` },
+        { label: "Client (English)", text: `Good morning/afternoon/evening. My name is [Name], ID [##ID##]. I will be your Spanish interpreter. Everything you say will be interpreted and remain confidential. Please speak in short phrases.` },
+        { label: "LEP (Target Language)", text: `Buenos dias/tardes/noches. Yo sere su interprete de Ingles. Todo lo que diga sera interpretado y mantenido confidencial. Por favor use frases cortas` },
       ]},
       { type: "checklist", items: ["Always include confidentiality (HIPAA)", "Set expectations for short segments"] },
     ],
