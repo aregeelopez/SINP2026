@@ -4,7 +4,7 @@
 
 A distraction-free PWA built by an interpreter, for interpreters — covering medical, health insurance, auto insurance, financial, cultural nuance, and customer service domains.
 
-[Get SINP — $49](https://raulopez7.gumroad.com/l/aregee-insights-SINP)#
+[Get SINP — $49](https://raulopez7.gumroad.com/l/aregee-insights-SINP)
 ### by aregee insights
 
 A professional bilingual workspace built specifically for Spanish medical interpreters. SINP runs in the browser as a Progressive Web App (PWA) — no installation required, works offline, and installs to your desktop in one click.
