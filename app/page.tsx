@@ -43,10 +43,6 @@ export default function InterpreterPad() {
       />
     );
   }
-
-  return (
-    // existing SINP JSX
-  );
 }
 
   if (!interpreter) {
