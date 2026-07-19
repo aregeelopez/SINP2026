@@ -1,22 +1,10 @@
-"use client";
-
-import { useState, useCallback, useMemo, useEffect } from "react";
-import { extractVerificationTokens } from "./lib/extractVerificationTokens";
-import GlossarySidebar from "./components/GlossarySidebar";
-import NumberVerification from "./components/NumberVerification";
-import PainAssessment from "./components/PainAssessment";
-import ProtocolCheatSheet from "./components/ProtocolCheatSheet";
-import NotesEditor from "./components/NotesEditor";
-import ShredModal from "./components/ShredModal";
-import InterpreterSetup from "./components/InterpreterSetup";
-
-interface Interpreter {
-  firstName: string;
-  interpreterId: string;
-}
-
 export default function InterpreterPad() {
   const [interpreter, setInterpreter] = useState<Interpreter | null>(null);
+  const [notes, setNotes] = useState("");
+  const [showShred, setShowShred] = useState(false);
+  const [rightPanelTab, setRightPanelTab] = useState("protocol");
+  const [verified, setVerified] = useState<Set<string>>(new Set());
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem("sinpInterpreter");
@@ -25,6 +13,41 @@ export default function InterpreterPad() {
       setInterpreter(JSON.parse(saved));
     }
   }, []);
+
+  const handleShred = useCallback(() => {
+    setNotes("");
+    setVerified(new Set());
+    setShowShred(false);
+  }, []);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(notes);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch (err) {
+      console.error("Failed to copy:", err);
+    }
+  };
+
+  if (!interpreter) {
+    return (
+      <InterpreterSetup
+        onComplete={(data) => {
+          localStorage.setItem(
+            "sinpInterpreter",
+            JSON.stringify(data)
+          );
+          setInterpreter(data);
+        }}
+      />
+    );
+  }
+
+  return (
+    // existing SINP JSX
+  );
+}
 
   if (!interpreter) {
     return (
