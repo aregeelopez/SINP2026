@@ -74,7 +74,7 @@ export default function InterpreterPad() {
     setNotes("");
     setVerified(new Set());
     setShowShred(false);
-  }, []);
+  } []);
 
   const handleCopy = async () => {
     try {
