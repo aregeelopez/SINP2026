@@ -25,6 +25,8 @@ export default function InterpreterPad() {
   const [interpreter, setInterpreter] = useState<Interpreter | null>(null);
   const [checkedStorage, setCheckedStorage] = useState(false);
   const [showWelcomeBack, setShowWelcomeBack] = useState(false);
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [isInstalled, setIsInstalled] = useState(false);
 
   useEffect(() => {
     const handleBeforeInstallPrompt = (e: Event) => {
@@ -43,6 +45,20 @@ export default function InterpreterPad() {
       setIsInstalled(true);
     }
 
+    // Load saved interpreter
+    const saved = localStorage.getItem("sinpInterpreter");
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved) as Interpreter;
+        setInterpreter(parsed);
+        setShowWelcomeBack(true);
+        setTimeout(() => setShowWelcomeBack(false), 4000);
+      } catch (err) {
+        console.error("Failed to parse saved interpreter:", err);
+      }
+    }
+    setCheckedStorage(true);
+
     return () => {
       window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
       window.removeEventListener("appinstalled", handleAppInstalled);
@@ -56,25 +72,11 @@ export default function InterpreterPad() {
     setDeferredPrompt(null);
   }, [deferredPrompt]);
 
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved) as Interpreter;
-        setInterpreter(parsed);
-        setShowWelcomeBack(true);
-        setTimeout(() => setShowWelcomeBack(false), 4000);
-      } catch (err) {
-        console.error("Failed to parse saved interpreter:", err);
-      }
-    }
-
-    setCheckedStorage(true);
-  }, []);
-
   const handleShred = useCallback(() => {
     setNotes("");
     setVerified(new Set());
     setShowShred(false);
-  } []);
+  }, []);
 
   const handleCopy = async () => {
     try {
