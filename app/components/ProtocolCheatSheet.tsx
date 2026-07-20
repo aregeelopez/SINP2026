@@ -1,5 +1,27 @@
 "use client";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+
+interface Interpreter {
+  firstName: string;
+  interpreterId: string;
+}
+
+interface ProtocolCheatSheetProps {
+  interpreter?: Interpreter | null;
+}
+
+const PLACEHOLDER_PATTERN = /\[##ID##\]|\[ID\]|\[Name\]/g;
+
+function personalize(sections: typeof SECTIONS, interpreter?: Interpreter | null) {
+  const name = interpreter?.firstName?.trim() || "[Name]";
+  const id = interpreter?.interpreterId?.trim() || "[ID]";
+
+  const json = JSON.stringify(sections).replace(PLACEHOLDER_PATTERN, (match) =>
+    match === "[Name]" ? name : id
+  );
+
+  return JSON.parse(json) as typeof SECTIONS;
+}
 
 const SECTIONS = [
   {
@@ -326,11 +348,16 @@ function renderBlock(block: any, idx: number) {
   }
 }
 
-export default function ProtocolCheatSheet() {
+export default function ProtocolCheatSheet({ interpreter }: ProtocolCheatSheetProps) {
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredSections = SECTIONS.filter((s) => {
+  const personalizedSections = useMemo(
+    () => personalize(SECTIONS, interpreter),
+    [interpreter]
+  );
+
+  const filteredSections = personalizedSections.filter((s) => {
     if (!searchQuery) return true;
     const q = searchQuery.toLowerCase();
     return s.title.toLowerCase().includes(q) || JSON.stringify(s.content).toLowerCase().includes(q);

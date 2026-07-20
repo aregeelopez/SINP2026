@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useEffect } from "react";
 import { extractVerificationTokens } from "./lib/extractVerificationTokens";
 import GlossarySidebar from "./components/GlossarySidebar";
 import NumberVerification from "./components/NumberVerification";
@@ -8,6 +8,12 @@ import PainAssessment from "./components/PainAssessment";
 import ProtocolCheatSheet from "./components/ProtocolCheatSheet";
 import NotesEditor from "./components/NotesEditor";
 import ShredModal from "./components/ShredModal";
+import InterpreterSetup from "./components/InterpreterSetup";
+
+interface Interpreter {
+  firstName: string;
+  interpreterId: string;
+}
 
 export default function InterpreterPad() {
   const [notes, setNotes] = useState("");
@@ -15,6 +21,27 @@ export default function InterpreterPad() {
   const [rightPanelTab, setRightPanelTab] = useState("protocol");
   const [verified, setVerified] = useState<Set<string>>(new Set());
   const [copied, setCopied] = useState(false);
+
+  const [interpreter, setInterpreter] = useState<Interpreter | null>(null);
+  const [checkedStorage, setCheckedStorage] = useState(false);
+  const [showWelcomeBack, setShowWelcomeBack] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("sinpInterpreter");
+
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved) as Interpreter;
+        setInterpreter(parsed);
+        setShowWelcomeBack(true);
+        setTimeout(() => setShowWelcomeBack(false), 4000);
+      } catch (err) {
+        console.error("Failed to parse saved interpreter:", err);
+      }
+    }
+
+    setCheckedStorage(true);
+  }, []);
 
   const handleShred = useCallback(() => {
     setNotes("");
@@ -85,7 +112,7 @@ export default function InterpreterPad() {
 
     if (rightPanelTab === "protocol") {
       return (
-        <ProtocolCheatSheet />
+        <ProtocolCheatSheet interpreter={interpreter} />
       );
     }
 
@@ -105,6 +132,20 @@ export default function InterpreterPad() {
         };
 
 
+  if (!checkedStorage) {
+    return null;
+  }
+
+  if (!interpreter) {
+    return (
+      <InterpreterSetup
+        onComplete={(data) => {
+          setInterpreter(data);
+        }}
+      />
+    );
+  }
+
   return (
     <div
       className="flex flex-col overflow-hidden"
@@ -116,6 +157,28 @@ export default function InterpreterPad() {
         height: "100vh",
       }}
     >
+
+      {showWelcomeBack && (
+        <div
+          style={{
+            position: "fixed",
+            top: 16,
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 50,
+            background: "#0d9488",
+            color: "white",
+            fontSize: 13,
+            fontWeight: 700,
+            padding: "10px 20px",
+            borderRadius: 8,
+            boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+          }}
+        >
+          👋 Welcome back{interpreter.firstName ? `, ${interpreter.firstName}` : ""}
+          {interpreter.interpreterId ? ` (ID ${interpreter.interpreterId})` : ""}
+        </div>
+      )}
 
       <header
         className="flex items-center justify-between px-6 py-3 border-b flex-shrink-0"
