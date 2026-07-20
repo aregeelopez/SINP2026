@@ -256,6 +256,20 @@ export default function InterpreterPad() {
 
         <div className="flex gap-2">
 
+          {deferredPrompt && !isInstalled && (
+            <button
+              onClick={handleInstallClick}
+              className="text-xs font-bold px-4 py-2 rounded-lg"
+              style={{
+                background: "white",
+                color: "#0d9488",
+                border: "1px solid #99f6e4",
+              }}
+            >
+              ⬇ INSTALL APP
+            </button>
+          )}
+
           <button
             onClick={handleCopy}
             className="text-xs font-bold px-4 py-2 rounded-lg"
