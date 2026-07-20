@@ -71,7 +71,7 @@ export default function InterpreterSetup({
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
-            placeholder="Raul"
+            placeholder="First Name"
             className="w-full rounded-lg border px-4 py-3"
             style={{
               background: "white",
