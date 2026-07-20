@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useMemo, useEffect } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { extractVerificationTokens } from "./lib/extractVerificationTokens";
 import GlossarySidebar from "./components/GlossarySidebar";
 import NumberVerification from "./components/NumberVerification";
@@ -8,29 +8,13 @@ import PainAssessment from "./components/PainAssessment";
 import ProtocolCheatSheet from "./components/ProtocolCheatSheet";
 import NotesEditor from "./components/NotesEditor";
 import ShredModal from "./components/ShredModal";
-import InterpreterSetup from "./components/InterpreterSetup";
-
-interface Interpreter {
-  firstName: string;
-  interpreterId: string;
-}
 
 export default function InterpreterPad() {
-  const [interpreter, setInterpreter] = useState<Interpreter | null>(null);
-
   const [notes, setNotes] = useState("");
   const [showShred, setShowShred] = useState(false);
   const [rightPanelTab, setRightPanelTab] = useState("protocol");
   const [verified, setVerified] = useState<Set<string>>(new Set());
   const [copied, setCopied] = useState(false);
-
-  useEffect(() => {
-    const saved = localStorage.getItem("sinpInterpreter");
-
-    if (saved) {
-      setInterpreter(JSON.parse(saved));
-    }
-  }, []);
 
   const handleShred = useCallback(() => {
     setNotes("");
@@ -46,6 +30,7 @@ export default function InterpreterPad() {
       setTimeout(() => {
         setCopied(false);
       }, 1500);
+
     } catch (err) {
       console.error("Failed to copy:", err);
     }
@@ -78,6 +63,7 @@ export default function InterpreterPad() {
     (token) => !verified.has(token.id)
   ).length;
 
+
   const renderRightPanel = () => {
     if (rightPanelTab === "numbers") {
       return (
@@ -90,15 +76,22 @@ export default function InterpreterPad() {
     }
 
     if (rightPanelTab === "pain") {
-      return <PainAssessment onAppend={handleAppend} />;
+      return (
+        <PainAssessment
+          onAppend={handleAppend}
+        />
+      );
     }
 
     if (rightPanelTab === "protocol") {
-      return <ProtocolCheatSheet />;
+      return (
+        <ProtocolCheatSheet />
+      );
     }
 
     return null;
   };
+
 
   const tabStyle = (tab: string) =>
     rightPanelTab === tab
@@ -111,20 +104,6 @@ export default function InterpreterPad() {
           color: "var(--text-mid)",
         };
 
-  if (!interpreter) {
-    return (
-      <InterpreterSetup
-        onComplete={(data) => {
-          localStorage.setItem(
-            "sinpInterpreter",
-            JSON.stringify(data)
-          );
-
-          setInterpreter(data);
-        }}
-      />
-    );
-  }
 
   return (
     <div
@@ -137,6 +116,7 @@ export default function InterpreterPad() {
         height: "100vh",
       }}
     >
+
       <header
         className="flex items-center justify-between px-6 py-3 border-b flex-shrink-0"
         style={{
@@ -144,7 +124,9 @@ export default function InterpreterPad() {
           borderColor: "#14b8a6",
         }}
       >
+
         <div className="flex items-center gap-3">
+
           <div
             className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs"
             style={{
@@ -156,23 +138,32 @@ export default function InterpreterPad() {
           </div>
 
           <div>
+
             <h1
               className="text-sm font-bold leading-none"
-              style={{ color: "white" }}
+              style={{
+                color: "white",
+              }}
             >
               aregee insights
             </h1>
 
             <p
               className="text-[10px] mt-1 uppercase tracking-wider"
-              style={{ color: "#99f6e4" }}
+              style={{
+                color:"#99f6e4",
+              }}
             >
               Spanish Interpreter's Note Pad
             </p>
+
           </div>
+
         </div>
 
+
         <div className="flex gap-2">
+
           <button
             onClick={handleCopy}
             className="text-xs font-bold px-4 py-2 rounded-lg"
@@ -184,50 +175,74 @@ export default function InterpreterPad() {
             {copied ? "✓ COPIED" : "COPY NOTES"}
           </button>
 
+
           <button
             onClick={() => setShowShred(true)}
             className="text-xs font-bold px-4 py-2 rounded-lg"
             style={{
-              background: "#dc2626",
-              color: "white",
+              background:"#dc2626",
+              color:"white",
             }}
           >
             SHRED SESSION
           </button>
+
         </div>
+
       </header>
 
+
       <div className="flex flex-1 overflow-hidden">
+
+
         <aside
           className="w-[28rem] flex-shrink-0 border-r"
           style={{
-            background: "var(--bg-panel)",
-            borderColor: "var(--border)",
+            background:"var(--bg-panel)",
+            borderColor:"var(--border)",
           }}
         >
           <GlossarySidebar />
         </aside>
 
+
         <main
           className="flex-1 flex flex-col overflow-hidden"
           style={{
-            background: "var(--bg-main)",
-            minWidth: "420px",
+            background:"var(--bg-main)",
+            minWidth:"420px",
           }}
         >
-          <NotesEditor notes={notes} onChange={setNotes} />
+
+          <NotesEditor
+            notes={notes}
+            onChange={setNotes}
+          />
+
         </main>
+
+
 
         <aside
           className={`${
-            rightPanelTab === "protocol" ? "w-[30rem]" : "w-96"
+            rightPanelTab === "protocol"
+              ? "w-[30rem]"
+              : "w-96"
           } flex-shrink-0 border-l flex flex-col`}
           style={{
-            background: "var(--bg-panel)",
-            borderColor: "var(--border)",
+            background:"var(--bg-panel)",
+            borderColor:"var(--border)",
           }}
         >
-          <div className="flex border-b">
+
+
+          <div
+            className="flex border-b"
+            style={{
+              borderColor:"var(--border)",
+            }}
+          >
+
             <button
               onClick={() => setRightPanelTab("protocol")}
               className="flex-1 py-3 text-[9px] font-bold"
@@ -236,6 +251,7 @@ export default function InterpreterPad() {
               PROTOCOL
             </button>
 
+
             <button
               onClick={() => setRightPanelTab("pain")}
               className="flex-1 py-3 text-[9px] font-bold"
@@ -243,6 +259,7 @@ export default function InterpreterPad() {
             >
               PAIN
             </button>
+
 
             <button
               onClick={() => setRightPanelTab("numbers")}
@@ -253,18 +270,38 @@ export default function InterpreterPad() {
 
               {unverifiedCount > 0 &&
                 rightPanelTab !== "numbers" && (
-                  <span className="absolute top-1 right-1 bg-red-600 text-white text-[9px] rounded-full px-1">
-                    {unverifiedCount}
-                  </span>
-                )}
+                <span
+                  style={{
+                    position:"absolute",
+                    top:6,
+                    right:6,
+                    background:"#dc2626",
+                    color:"white",
+                    fontSize:9,
+                    fontWeight:700,
+                    borderRadius:999,
+                    padding:"1px 5px",
+                  }}
+                >
+                  {unverifiedCount}
+                </span>
+              )}
+
             </button>
+
           </div>
+
 
           <div className="flex-1 overflow-y-auto">
             {renderRightPanel()}
           </div>
+
+
         </aside>
+
+
       </div>
+
 
       {showShred && (
         <ShredModal
@@ -272,6 +309,8 @@ export default function InterpreterPad() {
           onCancel={() => setShowShred(false)}
         />
       )}
+
+
     </div>
   );
 }
