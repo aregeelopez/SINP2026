@@ -11,7 +11,7 @@ SINP2026 is currently under active development. Security updates are provided fo
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in SINP2026, please report it responsibly.
+If you discover a security vulnerability in SINP2026, please report it responsibly by emailing **aregeelopez@outlook.com**.
 
 Please include:
 
