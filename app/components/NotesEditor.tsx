@@ -61,6 +61,9 @@ export default function NotesEditor({ notes, onChange }: Props) {
           onKeyDown={handleKeyDown}
           placeholder={`Start typing your interpretation notes here…\n\nNumbers you type will appear in the verification panel →`}
           className="absolute inset-0 w-full h-full p-6 resize-none outline-none"
+          autoComplete="off"
+          autoCorrect="off"
+          spellCheck={false}
           style={{
             background: "var(--bg-panel)",
             color: "var(--text-dark)",
@@ -69,7 +72,6 @@ export default function NotesEditor({ notes, onChange }: Props) {
             lineHeight: "1.8",
             fontFamily: "'JetBrains Mono', 'Fira Code', 'Courier New', monospace",
           }}
-          spellCheck={false}
         />
       </div>
     </div>

@@ -28,6 +28,30 @@ export default function InterpreterPad() {
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [isInstalled, setIsInstalled] = useState(false);
 
+  // Fail-safe #1: force-clear on every mount, even though state already
+  // inits empty. Defends against future code changes accidentally seeding
+  // notes/verified from props, storage, or SSR hydration mismatches.
+  useEffect(() => {
+    setNotes("");
+    setVerified(new Set());
+  }, []);
+
+  // Fail-safe #2: browsers can restore a full DOM snapshot (including a
+  // textarea's prior text) from the back/forward cache (bfcache) when the
+  // user navigates back to this tab, bypassing React state entirely. Force
+  // a hard clear whenever the page is restored this way.
+  useEffect(() => {
+    const handlePageShow = (event: PageTransitionEvent) => {
+      if (event.persisted) {
+        setNotes("");
+        setVerified(new Set());
+      }
+    };
+    window.addEventListener("pageshow", handlePageShow);
+    return () => window.removeEventListener("pageshow", handlePageShow);
+  }, []);
+
+
   useEffect(() => {
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
