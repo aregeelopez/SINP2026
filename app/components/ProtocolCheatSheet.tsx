@@ -85,10 +85,6 @@ const SECTIONS = [
       { type: "checklist", items: ["Keep a steady pace", "Ask for short segments if needed", "Stay efficient, especially in emergencies 🚨"] },
       { type: "avoid", items: ["Rush excessively", "Be too slow (causes delays)"] },
       { type: "scripts", items: [{ label: "When speaker is too long", text: "This is the interpreter speaking. Could you please speak in shorter segments so I can interpret everything accurately?" }] },
-      { type: "table-dos-donts", label: "Filler words",
-        dos: ['"I have been feeling dizzy for two days."'], donts: ['"Okay… so… um…"'],
-        doLabel: "✔ Say", dontLabel: "❌ Avoid",
-      },
     ],
   },
   {
