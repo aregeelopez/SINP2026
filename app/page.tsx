@@ -251,7 +251,7 @@ export default function InterpreterPad() {
             background: "#fffbeb",
             color: "#92400e",
             border: "1px solid #fcd34d",
-            fontSize: 12,
+            fontSize: 16,
             fontWeight: 600,
             padding: "10px 18px",
             borderRadius: 8,
