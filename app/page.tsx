@@ -78,14 +78,21 @@ export default function InterpreterPad() {
     setShowShred(false);
   }, []);
 
+  const [showClipboardNotice, setShowClipboardNotice] = useState(false);
+
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(notes);
       setCopied(true);
+      setShowClipboardNotice(true);
 
       setTimeout(() => {
         setCopied(false);
       }, 1500);
+
+      setTimeout(() => {
+        setShowClipboardNotice(false);
+      }, 6000);
 
     } catch (err) {
       console.error("Failed to copy:", err);
@@ -206,6 +213,32 @@ export default function InterpreterPad() {
         >
           👋 Welcome back{interpreter.firstName ? `, ${interpreter.firstName}` : ""}
           {interpreter.interpreterId ? ` (ID ${interpreter.interpreterId})` : ""}
+        </div>
+      )}
+
+      {showClipboardNotice && (
+        <div
+          style={{
+            position: "fixed",
+            bottom: 16,
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 50,
+            background: "#fffbeb",
+            color: "#92400e",
+            border: "1px solid #fcd34d",
+            fontSize: 12,
+            fontWeight: 600,
+            padding: "10px 18px",
+            borderRadius: 8,
+            boxShadow: "0 4px 12px rgba(0,0,0,0.12)",
+            maxWidth: 420,
+            textAlign: "center",
+          }}
+        >
+          ⚠️ Notes copied to clipboard. This device's clipboard may retain the
+          text until overwritten — clear it (copy something else, or paste and
+          delete) once you're done pasting to protect confidentiality.
         </div>
       )}
 
