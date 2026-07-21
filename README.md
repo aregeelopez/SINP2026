@@ -21,7 +21,7 @@ A professional bilingual workspace built specifically for Spanish medical interp
 - **🔢 Number Verification** — Automatically extracts numbers from your notes including alphanumeric IDs for quick side-by-side verification.
 - **💊 Pain Assessment** — 10-point pain scale with bilingual labels plus 36 pain descriptors in English and Spanish. Click any descriptor to append directly to your notes.
 - **📝 Notes Editor** — Clean, distraction-free notepad built for fast note-taking during live sessions.
-- **🔥 Shred Session** — Instantly wipes all notes at the end of a session. HIPAA-aligned.
+- **🔥 Shred Session** — Instantly wipes all notes at the end of a session. Notes are never saved to disk or transmitted to a server; they exist only in memory for the duration of the session.
 - **PWA** — Installs to desktop or home screen, works offline.
 
 ---

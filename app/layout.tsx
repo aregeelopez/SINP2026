@@ -4,7 +4,7 @@ import "./global.css";
 
 export const metadata: Metadata = {
   title: "aregee insights — Spanish Interpreter's Note Pad",
-  description: "Secure, HIPAA-aligned note-taking workspace for Spanish medical interpreters.",
+  description: "Local-only, ephemeral note-taking workspace for Spanish medical interpreters. Notes are never saved or transmitted — they exist only in your browser session and are cleared on shred, refresh, or close.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
