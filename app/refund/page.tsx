@@ -18,7 +18,7 @@ export default function RefundPolicyPage() {
 
       <H2>Refund Eligibility</H2>
       <P>
-        We offer refunds within <strong>7 days</strong> of purchase if:
+        We offer refunds within <strong>14 days</strong> of purchase if:
       </P>
       <Ul>
         <Li>
@@ -36,7 +36,7 @@ export default function RefundPolicyPage() {
           Issues caused by your own device, browser, or network environment
           that are outside SINP&apos;s control.
         </Li>
-        <Li>Requests made after the 7-day window above has passed.</Li>
+        <Li>Requests made after the 14-day window above has passed.</Li>
       </Ul>
 
       <H2>How to Request a Refund</H2>
