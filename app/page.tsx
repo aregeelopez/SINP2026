@@ -306,6 +306,36 @@ export default function InterpreterPad() {
               Spanish Interpreter's Note Pad
             </p>
 
+            <div className="flex gap-2 mt-1">
+              <a
+                href="/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[9px] uppercase tracking-wider hover:underline"
+                style={{ color: "#99f6e4" }}
+              >
+                Privacy
+              </a>
+              <a
+                href="/terms"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[9px] uppercase tracking-wider hover:underline"
+                style={{ color: "#99f6e4" }}
+              >
+                Terms
+              </a>
+              <a
+                href="/refund"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[9px] uppercase tracking-wider hover:underline"
+                style={{ color: "#99f6e4" }}
+              >
+                Refund
+              </a>
+            </div>
+
           </div>
 
         </div>
